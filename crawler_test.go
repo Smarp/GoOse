@@ -171,3 +171,21 @@ func Test_MatchExactDescriptionMetaTag(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func Test_MatchOgDescriptionMetaTag(t *testing.T) {
+	article := Article{
+		Domain:          "borenius.com",
+		Title:           "KM Trainee - Borenius",
+		MetaDescription: "Haemme pääkonttorillemme Helsinkiin noin vuoden määräaikaiseen työsuhteeseen yhteistyökykyistä ja oma-aloitteista HARJOITTELIJAA (KM TRAINEE) Boreniuksen tietopalvelu palvelee noin sataa juristiamme sekä muita tukitoimintojamme Helsingissä ja Tampereella. Lisäksi avustamme tarvittaessa henkilöstöämme Pietarissa ja New Yorkissa. Tulet toimimaan osana yhdeksän hengen tiimiä. Tehtävä sisältää…",
+		CleanedText:     "",
+		MetaKeywords:    "",
+		CanonicalLink:   "http://www.borenius.com/2015/11/06/km-trainee/",
+		FinalUrl:        "http://www.borenius.com/2015/11/06/km-trainee/",
+		TopImage:        "",
+	}
+
+	err := ValidateArticle(article)
+	if err != nil {
+		t.Error(err)
+	}
+}
