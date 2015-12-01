@@ -255,11 +255,18 @@ func OpenGraphResolver(article *Article) string {
 	}
 	topImage = findBestImageFromScore(ogImages).url
 IMAGE_FINALIZE:
-	if !strings.HasPrefix(topImage, "http") {
-		topImage = "http://" + topImage
+	parsedImg, err := url.Parse(topImage)
+	if err != nil {
+		// ImageUrl found is not valid
+		return ""
 	}
-
-	return topImage
+	if parsedImg.Scheme == "" {
+		parsedImg.Scheme = "http"
+	}
+	if parsedImg.Host == "" {
+		parsedImg.Host = article.Domain
+	}
+	return parsedImg.String()
 }
 
 // assume that len(ogImages)>=2
