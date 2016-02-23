@@ -1,11 +1,12 @@
 package goose
 
 import (
-	"github.com/advancedlogic/goquery"
 	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/advancedlogic/goquery"
 )
 
 type candidate struct {
@@ -276,10 +277,10 @@ func OpenGraphResolver(article *Article) string {
 	}
 	topImage = findBestImageFromScore(ogImages).url
 IMAGE_FINALIZE:
-	parsedImg, err := url.Parse(topImage)
+	parsedImg, err := url.Parse(strings.Trim(topImage, " "))
 	if err != nil {
-		// ImageUrl found is not valid
-		return ""
+		// ImageUrl found is not valid, yet return it
+		return topImage
 	}
 	if parsedImg.Scheme == "" {
 		parsedImg.Scheme = "http"

@@ -794,7 +794,7 @@ func Test_TwitterCom(t *testing.T) {
 	article := Article{
 		Domain:          "twitter.com",
 		Title:           "Bloomberg Business on Twitter",
-		MetaDescription: "",
+		MetaDescription: "“Disney is counting on 300 million tourists to flock to its new Shanghai theme park https://t.co/pYwmmcd0bL”",
 		CleanedText:     "Language:\n\nHave an account?\n\nBloomberg Business\n\n@\n\nBloomberg Business\n\n@\n\nThe first word in business news.\n\nDisney is counting on 300 million tourists to flock to its new Shanghai theme park\n\nLoading seems to be taking a while.\n\nTwitter may be over capacity or experiencing a momentary hiccup. Try again or visit Twitter Status for more information.\n\nThis has already been marked as containing sensitive content.\n\nFlag this as containing potentially illegal content.\n\nList name\n\nDescription\n\nPublic · Anyone can follow this list\n\nPrivate · Only you can access this list\n\nThe URL of this tweet is below. Copy it to easily share with friends.\n\nAdd this Tweet to your website by copying the code below. Learn more\n\nAdd this video to your website by copying the code below. Learn more\n\nInclude parent Tweet\n\nInclude media\n\nForgot password?\n\nNot on Twitter? Sign up, tune into the things you care about, and get updates as they happen.\n\nSign up\n\nCountry\n\nCode\n\nFor customers of\n\nUnited States\n\n40404\n\n(any)\n\nCanada\n\n21212\n\n(any)\n\nUnited Kingdom\n\n86444\n\nVodafone, Orange, 3, O2\n\nBrazil\n\n40404\n\nNextel, TIM\n\nHaiti\n\n40404\n\nDigicel, Voila\n\nIreland\n\n51210\n\nVodafone, O2\n\nIndia\n\n53000\n\nBharti Airtel, Videocon, Reliance\n\nIndonesia\n\n89887\n\nAXIS, 3, Telkomsel, Indosat, XL Axiata\n\nItaly\n\n4880804\n\nWind\n\n3424486444\n\nVodafone\n\n» See SMS short codes for other countries\n\nHmm... Something went wrong. Please try again.",
 		MetaKeywords:    "",
 		CanonicalLink:   "https://twitter.com/business/status/665179987645964290",
@@ -830,7 +830,6 @@ func Test_UsaTodayCom(t *testing.T) {
 		"https://twitter.com/intent/tweet?url=http%3A//usat.ly/1iXh7zM&text=Social%20Security%2C%20Medicare%20changes%20are%20coming%20with%20new%20budget%20law&via=usatoday",
 		"http://www.linkedin.com/shareArticle?url=http%3A//usat.ly/1iXh7zM&mini=true",
 	}
-
 	removed := []string{"~~~REMOVED~~~"}
 	err := ValidateArticle(article, &removed)
 	if err != nil {
@@ -877,7 +876,7 @@ func Test_WordpressCom(t *testing.T) {
 	article := Article{
 		Domain:          "wordpress.com",
 		Title:           "Raj's Lab",
-		MetaDescription: "Strategy and Entrepreneurship (by Raj Shankar)",
+		MetaDescription: "Strategy and Entrepreneurship",
 		CleanedText:     "",
 		MetaKeywords:    "",
 		CanonicalLink:   "",
@@ -964,16 +963,33 @@ func Test_YouTubeCom(t *testing.T) {
 func Test_MatchOgDescriptionMetaTag(t *testing.T) {
 	article := Article{
 		Domain:          "borenius.com",
-		Title:           "KM Trainee - Borenius",
+		Title:           "KM Trainee",
 		MetaDescription: "Haemme pääkonttorillemme Helsinkiin noin vuoden määräaikaiseen työsuhteeseen yhteistyökykyistä ja oma-aloitteista HARJOITTELIJAA (KM TRAINEE) Boreniuksen tietopalvelu palvelee noin sataa juristiamme sekä muita tukitoimintojamme Helsingissä ja Tampereella. Lisäksi avustamme tarvittaessa henkilöstöämme Pietarissa ja New Yorkissa. Tulet toimimaan osana yhdeksän hengen tiimiä. Tehtävä sisältää…",
 		CleanedText:     "",
 		MetaKeywords:    "",
 		CanonicalLink:   "http://www.borenius.com/2015/11/06/km-trainee/",
-		FinalUrl:        "http://www.borenius.com/2015/11/06/km-trainee/",
 		TopImage:        "",
 	}
+	removed := []string{"~~~REMOVED~~~"}
+	err := ValidateArticle(article, &removed)
+	if err != nil {
+		t.Error(err)
+	}
+}
 
-	err := ValidateArticle(article)
+func Test_TrimImageUrl(t *testing.T) {
+
+	article := Article{
+		Domain:          "www.uefa.org",
+		Title:           "Social responsibility",
+		MetaDescription: "If football is Paul Pogba's driving passion, it is a love he is sharing through his support of the UEFA-ICRC partnership for landmine victims in Afghanistan. Watch his exclusive interview.",
+		CleanedText:     "",
+		MetaKeywords:    "pogba,supporting,landmine,victims,afghanistan,Italy,France,Juventus,Pogba",
+		CanonicalLink:   "",
+		TopImage:        "http://www.uefa.org/MultimediaFiles/Photo/uefaorg/General/02/33/31/99/2333199_s2.jpg",
+	}
+	removed := []string{"~~~REMOVED~~~"}
+	err := ValidateArticle(article, &removed)
 	if err != nil {
 		t.Error(err)
 	}
