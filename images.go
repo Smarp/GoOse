@@ -85,6 +85,11 @@ func score(tag *goquery.Selection) int {
 			tagScore++
 		}
 	}
+
+	if _, exists := tag.Attr("title"); exists {
+		tagScore++
+	}
+
 	return tagScore
 }
 

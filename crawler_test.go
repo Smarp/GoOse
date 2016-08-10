@@ -994,3 +994,21 @@ func Test_TrimImageUrl(t *testing.T) {
 		t.Error(err)
 	}
 }
+
+func Test_ImageWithoutMeta(t *testing.T) {
+
+	article := Article{
+		Domain:          "lr.org",
+		Title:           "Assuring the future of FLNG in America and worldwide",
+		MetaDescription: "The engineering challenges posed by colossal FLNG projects are in danger of dwarfing the practicalities of realizing the build.",
+		CleanedText:     "",
+		MetaKeywords:    "flng, engineering, supply chain,",
+		CanonicalLink:   "",
+		TopImage:        "/en/_images/229-89461_future_flng_header.jpg",
+	}
+	removed := []string{"~~~REMOVED~~~"}
+	err := ValidateArticle(article, &removed)
+	if err != nil {
+		t.Error(err)
+	}
+}
